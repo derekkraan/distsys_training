@@ -17,9 +17,9 @@ defmodule PingPongTest do
     GenServer.multi_call(Consumer, :flush)
     GenServer.multi_call(Producer, :flush)
 
-    on_exit fn ->
+    on_exit(fn ->
       LocalCluster.stop_nodes(nodes)
-    end
+    end)
 
     {:ok, nodes: nodes}
   end
@@ -44,10 +44,10 @@ defmodule PingPongTest do
 
     eventually(fn ->
       assert Producer.get_counts() == %{
-        n1 => 3,
-        n2 => 3,
-        Node.self() => 3,
-      }
+               n1 => 3,
+               n2 => 3,
+               Node.self() => 3
+             }
     end)
   end
 
@@ -67,6 +67,8 @@ defmodule PingPongTest do
     spawn(fn ->
       GenServer.call({Consumer, n1}, :crash)
     end)
+
+    Process.sleep(1000)
 
     for n <- nodes do
       eventually(fn ->
