@@ -7,8 +7,8 @@ defmodule Crdt.Application do
 
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: Crdt.Worker.start_link(arg)
-      # {Crdt.Worker, arg}
+      {Crdt, name: Crdt.GCounter, crdt_module: Crdt.GCounter},
+      {Crdt, name: Crdt.GrowSet, crdt_module: Crdt.GrowSet}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
