@@ -29,10 +29,6 @@ defmodule Crdt do
     GenServer.call(crdt, :read)
   end
 
-  def reset(crdt) do
-    GenServer.call(crdt, :reset)
-  end
-
   defp send_tick() do
     Process.send_after(self(), :tick, @tick_interval)
   end
@@ -55,10 +51,6 @@ defmodule Crdt do
     new_crdt_state = state.crdt_module.merge(state.crdt_state, remote_crdt_state)
 
     {:noreply, %{state | crdt_state: new_crdt_state}}
-  end
-
-  def handle_call(:reset, _from, state) do
-    {:reply, :ok, %{state | crdt_state: state.crdt_module.new()}}
   end
 
   def handle_call({:mutate, operation, arguments}, _from, state) do
