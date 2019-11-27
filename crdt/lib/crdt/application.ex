@@ -8,7 +8,8 @@ defmodule Crdt.Application do
   def start(_type, _args) do
     children = [
       {Crdt, name: Crdt.GCounter, crdt_module: Crdt.GCounter},
-      {Crdt, name: Crdt.GrowSet, crdt_module: Crdt.GrowSet}
+      {Crdt, name: Crdt.GrowSet, crdt_module: Crdt.GrowSet},
+      {Crdt, name: Crdt.AddRemoveSet, crdt_module: Crdt.AddRemoveSet}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
