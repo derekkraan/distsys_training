@@ -2,7 +2,7 @@ defmodule CrdtGrowSetTest do
   use ExUnit.Case
 
   setup do
-    nodes = LocalCluster.start_nodes("counter", 3, files: [__ENV__.file])
+    nodes = LocalCluster.start_nodes("grow_set", 3, files: [__ENV__.file])
 
     :rpc.multicall(nodes, Application, :ensure_all_started, [:crdt])
 
